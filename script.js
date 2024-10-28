@@ -7,8 +7,8 @@ function TicTacToeGame () {
     let board = Array(9).fill(null);
     let players = [];
     let currentPlayer;
-    // FUNÇÃO initializePlayer() - CHAMA O CREATE PLAYER
-    const initializePlayer = () => {
+    // FUNÇÃO initializePlayers() - CHAMA O CREATE PLAYER
+    const initializePlayers = () => {
         players = [createPlayer('Player1','X'),createPlayer('Player2','O')]
         currentPlayer = players[0]
     };
@@ -51,9 +51,20 @@ function TicTacToeGame () {
         })
     }
     // FUNÇÃO displayBoard() - EXIBIR TABULEIRO NO DOM
+    const displayBoard = () => {
+        console.log(board)
 
+    }
     // FUNÇÃO updateBoard() - MODIFICAR O DOM
 
     // FUNÇÃO resetGame - REINICIAR O JOGO 
+    const resetGame = () => {
+        let board = Array(9).fill(null);
+        initializePlayers();
+        updateBoard();
+    }
+    return { initializePlayers,displayBoard,resetGame,checkWinOrDraw }
 }
-    
+const game = TicTacToeGame();
+game.initializePlayers();
+game.displayBoard();
