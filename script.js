@@ -13,9 +13,15 @@ function TicTacToeGame () {
         currentPlayer = players[0]
     };
     // FUNÇÃO switchPlayer() -  ALTERNA ENTRE P1 E P2
-
+    const switchPlayer = () => {
+        if (currentPlayer === players[0]) {
+            currentPlayer = players[1]
+        } else {
+            currentPlayer = players[0]
+        }
+    };
     // FUNÇÃO makeMove() - FAZ A JOGADA E CHAMA switchPlayer
-
+    
     // FUNÇÃO checkWinOrDraw() - VERIFICAR VITORIA / EMPATE **
 
     // FUNÇÃO displayBoard() - EXIBIR TABULEIRO NO DOM
