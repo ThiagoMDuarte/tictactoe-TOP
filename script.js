@@ -21,7 +21,6 @@ function TicTacToeGame () {
         }
     };
     // FUNÇÃO makeMove() - FAZ A JOGADA E CHAMA switchPlayer
-
     const makeMove = (position) => {
         // SO PODE FAZER A JOGADA SE position === null / ESTIVIER VAZIO
         if (!board[position]) {
@@ -30,10 +29,27 @@ function TicTacToeGame () {
             switchPlayer()
             //ATUALIZAR O BOARD
             updateBoard()
+            checkWinOrDraw()
         }
     }
     // FUNÇÃO checkWinOrDraw() - VERIFICAR VITORIA / EMPATE **
-
+    const checkWinOrDraw = () => {
+        const winCondition = [
+            [0, 1, 2],
+            [3, 4, 5], 
+            [6, 7, 8], 
+            [0, 3, 6], 
+            [1, 4, 7], 
+            [2, 5, 8], 
+            [0, 4, 8], 
+            [2, 4, 6]
+        ]
+        // SOME RETORNA TRUE SE 1 PASSAR O TESTE - TESTA O ARRAY EXTERNO
+        let hasWon = winCondition.some(combination => {
+        // EVERY RETORNA TRUE SE TODOS PASSAM O TESTE - TESTA O ARRAY INTERNO
+            return combination.every(index => board[index] === currentPlayer.symbol)
+        })
+    }
     // FUNÇÃO displayBoard() - EXIBIR TABULEIRO NO DOM
 
     // FUNÇÃO updateBoard() - MODIFICAR O DOM
