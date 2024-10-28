@@ -21,7 +21,17 @@ function TicTacToeGame () {
         }
     };
     // FUNÇÃO makeMove() - FAZ A JOGADA E CHAMA switchPlayer
-    
+
+    const makeMove = (position) => {
+        // SO PODE FAZER A JOGADA SE position === null / ESTIVIER VAZIO
+        if (!board[position]) {
+            board[position] = currentPlayer.symbol
+            // MUDAR O CURRENTPLAYER
+            switchPlayer()
+            //ATUALIZAR O BOARD
+            updateBoard()
+        }
+    }
     // FUNÇÃO checkWinOrDraw() - VERIFICAR VITORIA / EMPATE **
 
     // FUNÇÃO displayBoard() - EXIBIR TABULEIRO NO DOM
