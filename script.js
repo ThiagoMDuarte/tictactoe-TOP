@@ -10,7 +10,7 @@ function TicTacToeGame () {
 
     // FUNÇÃO initializePlayers() - CHAMA O CREATE PLAYER
     const initializePlayers = () => {
-        players = [createPlayer('Player1','X'),createPlayer('Player2','O')]
+        players = [createPlayer('Player-1','X'),createPlayer('Player-2','O')]
         currentPlayer = players[0]
     };
     // FUNÇÃO switchPlayer() -  ALTERNA ENTRE P1 E P2
@@ -51,7 +51,7 @@ function TicTacToeGame () {
         });
 
         if (hasWon) {
-            alert(`${currentPlayer.name} venceu!`);
+            alert(`${currentPlayer.name} Venceu!`);
             resetGame();
             return true;
         }
