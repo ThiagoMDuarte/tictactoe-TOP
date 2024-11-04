@@ -7,6 +7,7 @@ function TicTacToeGame () {
     let board = Array(9).fill(null);
     let players = [];
     let currentPlayer;
+
     // FUNÇÃO initializePlayers() - CHAMA O CREATE PLAYER
     const initializePlayers = () => {
         players = [createPlayer('Player1','X'),createPlayer('Player2','O')]
@@ -25,11 +26,10 @@ function TicTacToeGame () {
         // SO PODE FAZER A JOGADA SE position === null / ESTIVIER VAZIO
         if (!board[position]) {
             board[position] = currentPlayer.symbol
-            // MUDAR O CURRENTPLAYER
-            switchPlayer()
-            //ATUALIZAR O BOARD
             updateBoard()
-            checkWinOrDraw()
+            if (!checkWinOrDraw()) {
+                switchPlayer();
+            }
         }
     }
     // FUNÇÃO checkWinOrDraw() - VERIFICAR VITORIA / EMPATE **
@@ -44,27 +44,67 @@ function TicTacToeGame () {
             [0, 4, 8], 
             [2, 4, 6]
         ]
-        // SOME RETORNA TRUE SE 1 PASSAR O TESTE - TESTA O ARRAY EXTERNO
-        let hasWon = winCondition.some(combination => {
-        // EVERY RETORNA TRUE SE TODOS PASSAM O TESTE - TESTA O ARRAY INTERNO
-            return combination.every(index => board[index] === currentPlayer.symbol)
-        })
-    }
-    // FUNÇÃO displayBoard() - EXIBIR TABULEIRO NO DOM
+
+        // Verifica se há uma condição de vitória
+        const hasWon = winCondition.some(combination => {
+            return combination.every(index => board[index] === currentPlayer.symbol);
+        });
+
+        if (hasWon) {
+            alert(`${currentPlayer.name} venceu!`);
+            resetGame();
+            return true;
+        }
+
+        // Verifica empate
+        const isDraw = board.every(cell => cell !== null);
+        if (isDraw) {
+            alert('Empate!');
+            resetGame();
+            return true;
+        }
+
+        return false;
+    };
+    // FUNÇÃO PARA CRIAR E RENDERIZAR O TABULEIRO NO DOM
     const displayBoard = () => {
-        console.log(board)
 
+    const board = document.querySelector('.board');
+    board.innerHTML = '';
+
+    for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell'); 
+        cell.dataset.position = i; 
+        cell.addEventListener('click', () => makeMove(i));
+        board.appendChild(cell); 
     }
-    // FUNÇÃO updateBoard() - MODIFICAR O DOM
 
-    // FUNÇÃO resetGame - REINICIAR O JOGO 
+    // Cria e adiciona o botão de reset ao board
+    const resetButton = document.createElement('button');
+    resetButton.id = 'reset';          
+    resetButton.textContent = 'Reiniciar Jogo';
+    resetButton.addEventListener('click', resetGame);
+    board.appendChild(resetButton);   
+    }
+
+    // FUNÇÃO PARA ATUALIZAR O TABULEIRO NO DOM
+    const updateBoard = () => {
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach((cell, index) => {
+            cell.textContent = board[index];
+        });
+    };
+    // FUNÇÃO resetGame - REINICIAR O JOGO
     const resetGame = () => {
-        let board = Array(9).fill(null);
+        board = Array(9).fill(null);
         initializePlayers();
         updateBoard();
-    }
+    };
     return { initializePlayers,displayBoard,resetGame,checkWinOrDraw }
 }
+
+
 const game = TicTacToeGame();
 game.initializePlayers();
 game.displayBoard();

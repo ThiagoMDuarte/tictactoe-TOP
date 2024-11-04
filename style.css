@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+.board {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;   
+    gap: 5px;
+    justify-content: center;
+    place-items: center;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: solid 1px red;
+}
+
+#reset {
+    grid-column: 2; 
+    grid-row: 4;          
+    height: 40px;
+    font-size: 16px;
+}
